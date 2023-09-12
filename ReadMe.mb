@@ -1,0 +1,125 @@
+Create a Room (POST /rooms)
+Request:
+
+Method: POST
+URL: http://localhost:3000/rooms
+Headers:
+Content-Type: application/json
+Body (JSON):
+{
+  "numberOfSeats": 50,
+  "amenities": "Projector, Whiteboard",
+  "pricePerHour": 100
+}
+
+Response (201 Created):
+Body (JSON):
+{
+  "id": 1,
+  "numberOfSeats": 50,
+  "amenities": "Projector, Whiteboard",
+  "pricePerHour": 100
+}
+
+
+2.Book a Room (POST /bookings)
+Request:
+
+Method: POST
+URL: http://localhost:3000/bookings
+Headers:
+Content-Type: application/json
+Body (JSON):
+{
+  "customerName": "John Doe",
+  "date": "2023-09-15",
+  "startTime": "14:00",
+  "endTime": "16:00",
+  "roomId": 1
+}
+Response (201 Created):
+
+Body (JSON):
+{
+  "id": 1,
+  "customerName": "John Doe",
+  "date": "2023-09-15",
+  "startTime": "14:00",
+  "endTime": "16:00",
+  "roomId": 1
+}
+
+
+// if already Booked 
+
+Response (400 Created):
+Body (JSON):
+{
+    "error": "Room is already booked for the same date and time."
+}
+
+3.List all Rooms with Booked Data (GET /rooms/booked)
+Request:
+
+Method: GET
+URL: http://localhost:3000/rooms/booked
+Response (200 OK):
+
+Body (JSON):
+[
+  {
+    "roomName": "Room 1",
+    "bookedStatus": "Booked",
+    "customerName": "John Doe",
+    "date": "2023-09-15",
+    "startTime": "14:00",
+    "endTime": "16:00"
+  },
+  {
+    "roomName": "Room 2",
+    "bookedStatus": "Available",
+    "customerName": null,
+    "date": null,
+    "startTime": null,
+    "endTime": null
+  }
+]
+
+
+4.List all Customers with Booked Data (GET /customers/booked)
+Request:
+
+Method: GET
+URL: http://localhost:3000/customers/booked
+Response (200 OK):
+
+Body (JSON):
+[
+  {
+    "customerName": "John Doe",
+    "roomName": "Room 1",
+    "date": "2023-09-15",
+    "startTime": "14:00",
+    "endTime": "16:00"
+  }
+]
+
+5.List How Many Times a Customer Has Booked a Room (GET /customers/booking-count)
+Request:
+
+Method: GET
+URL: http://localhost:3000/customers/booking-count?customerName=John%20Doe
+Response (200 OK):
+
+Body (JSON):
+
+[
+  {
+    "id": 1,
+    "customerName": "John Doe",
+    "date": "2023-09-15",
+    "startTime": "14:00",
+    "endTime": "16:00",
+    "roomId": 1
+  }
+]
